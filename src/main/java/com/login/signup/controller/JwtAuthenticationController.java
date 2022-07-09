@@ -1,7 +1,9 @@
 package com.login.signup.controller;
 
 import com.login.signup.model.Users;
+import com.login.signup.util.AESCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -22,6 +24,7 @@ import com.login.signup.model.JwtResponse;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/api/v1")
 public class JwtAuthenticationController {
 
     @Autowired
@@ -33,10 +36,19 @@ public class JwtAuthenticationController {
     @Autowired
     private JWTUserDetailsService userDetailsService;
 
+    @Autowired
+    private AESCrypt aesCrypt;
+
+    @Value("${encryption.key}")
+    private String key;
+
+    @Value("${encryption.iv}")
+    private String iv;
+
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        authenticate(authenticationRequest.getUsername(), aesCrypt.decryptCBC(authenticationRequest.getPassword(), key, iv) );
 
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());

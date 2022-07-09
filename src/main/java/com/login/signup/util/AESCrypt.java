@@ -1,5 +1,7 @@
 package com.login.signup.util;
 
+import org.springframework.stereotype.Component;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -12,6 +14,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+@Component
 public class AESCrypt {
 
     /**
@@ -156,26 +159,26 @@ public class AESCrypt {
 
     /**
      * test
-     */
- /*   public static void main(String[] args) {
+
+    public static void main(String[] args) {
         String key = "49346A3CD8BFD3F9100B4CE9DAED72B1";
         String iv = "9836565498764147";
         //B5vet9zrTaD1FsTrJscUWQ==
         String msg = "ja1matad1";
         {
-            String encrypt = AESCrypt.encryptCBC(msg, key, iv);
-            System.out.println(encrypt);
-            String decryptStr = AESCrypt.decryptCBC(encrypt, key, iv);
+           // String encrypt = AESCrypt.encryptCBC(msg, key, iv);
+            //System.out.println(encrypt);
+            String decryptStr = AESCrypt.decryptCBC("B5vet9zrTaD1FsTrJscUWQ==", key, iv);
             System.out.println(decryptStr);
         }
         {
-            String encrypt = AESCrypt.encryptECB(msg, key);
-            System.out.println(encrypt);
-            String decryptStr = AESCrypt.decryptECB(encrypt, key);
-            System.out.println(decryptStr);
+            //String encrypt = AESCrypt.encryptECB(msg, key);
+            //System.out.println(encrypt);
+            //String decryptStr = AESCrypt.decryptECB(encrypt, key);
+            //System.out.println(decryptStr);
         }
-    }*/
-
+    }
+     */
 
 
 }
